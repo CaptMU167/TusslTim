@@ -17,3 +17,9 @@ ERRORS:
 
 > Health bar became huge
 - This was happening because the ratio of the health bar actually increased the length rather than reducing it because it was over the prototype '100' I changed it to be health/maxhealth
+
+> Movement in air halted when value is 0,0
+- IN PROGRESS
+
+> Knockback wrong direction
+- Facing in the takehit method had to be reversed because it was considering the local object's facing direction. Reversing it makes it refer to the opposing object's director.
