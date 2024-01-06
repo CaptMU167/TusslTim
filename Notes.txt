@@ -1,0 +1,19 @@
+TO DO:
+> Document the maths behind my button positioning
+> Move buttons closer together
+
+CHANGES TO PLAN:
+
+
+INTERESTING THINGS:
+
+
+ERRORS:
+> Escape key didn't leave the battle screen
+- I was using ==, not =, that's why.
+
+> Player ground value changes if the player leaves the battle screen and returns.
+- This was happening because each time the player.load method was called, it reduced the ground value by the player's height. I changed the code to be a constant instead of referencing itself.
+
+> Health bar became huge
+- This was happening because the ratio of the health bar actually increased the length rather than reducing it because it was over the prototype '100' I changed it to be health/maxhealth
