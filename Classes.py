@@ -1,4 +1,5 @@
 import pygame
+from random import choice
 
 HEIGHT = 720
 WIDTH = 1280
@@ -84,9 +85,10 @@ class Player():
         # Splitting the loaded info into segments
         Gattacks = allInfo[0]
         Jattacks = allInfo[1]
-        size = allInfo[2]
-        maxHealth = allInfo[3]
-        speed = allInfo[4]
+        sounds = allInfo[2]
+        size = allInfo[3]
+        maxHealth = allInfo[4]
+        speed = allInfo[5]
         # Grounded attacks
         self.atk1 = Gattacks[0]
         self.atk2 = Gattacks[1]
@@ -97,6 +99,12 @@ class Player():
         self.jatk2 = Jattacks[1]
         self.jatk3 = Jattacks[2]
         self.jatk4 = Jattacks[3]
+        # Getting hit sounds
+        self.hitsfx1 = sounds[0]
+        self.hitsfx2 = sounds[1]
+        self.hitsfx3 = sounds[2]
+        self.hitsfx4 = sounds[3]
+        self.hitsfx5 = sounds[4]
         # Dimensions and other properties        
         self.maxHealth = maxHealth
         self.health = maxHealth
@@ -185,7 +193,10 @@ class Player():
         if self.health - damage > 0:             # Ensure that health doesn't fall into negative values.
             self.health = self.health - damage*self.dmgDecay
         else:
-            self.health = 0            
+            self.health = 0
+
+        hurtSound = choice([self.hitsfx1, self.hitsfx2, self.hitsfx3,self.hitsfx4 ,self.hitsfx5]) 
+        hurtSound.play()      
 
         # Forces the enemy to jump at a certain velocity to simulate a knockback.
         self.isJumping = True
@@ -331,14 +342,16 @@ class Player():
 class Character():
     attacks = ()
     jAttacks = ()
+    hurtsfx = ()
     width = 0
     height = 0
     health = 0
     speed = 0
 
-    def __init__(self, attacks, jAttacks, width, height, health, speed):
+    def __init__(self, attacks, jAttacks, hurtSounds, width, height, health, speed):
         self.attacks = attacks
         self.jAttacks = jAttacks
+        self.hurtsfx = hurtSounds
         self.width = width
         self.height = height
         self.health = health
@@ -346,7 +359,7 @@ class Character():
 
     def getInfo(self):
         size = (self.width, self.height)
-        allInfo = (self.attacks), (self.jAttacks), size, self.health, self.speed
+        allInfo = (self.attacks), (self.jAttacks), (self.hurtsfx), size, self.health, self.speed
         return allInfo
 
 # This is a class imitating record, therefore I'm not using encapsulation for it.

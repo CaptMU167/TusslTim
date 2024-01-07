@@ -546,10 +546,22 @@ char3Jatk3 = Attack(30, 120, (40, 50), (0, 0), (0, -150), (200, 300), False)
 char3Jatk4 = Attack(5, 60, (0, 100), (0, 0), (0, 140), (500, 10), False)
 char3Jatks = (char3Jatk1, char3Jatk2, char3Jatk3, char3Jatk4)
 
-# ALL CHARACTERS TAKE THE FORMAT (GROUND ATTACKS, AIR ATTACKS, WIDTH, HEIGHT, HEALTH, SPEED)
-char1 = Character(char1Gatks, char1Jatks, 100, 150, 100, 20)
-char2 = Character(char2Gatks, char2Jatks, 150, 200, 200, 10)
-char3 = Character(char3Gatks, char3Jatks, 200, 300, 300, 5)
+# Loading Sound Effects
+
+sounds = []
+
+for character in range(1, 4):
+    soundList = []
+    for sound in range(1, 6):
+        newSound = pygame.mixer.Sound("./Assets/Screens/BattleScreen/char" + str(character) + "hit" + str(sound) + ".mp3")
+        soundList.append(newSound)
+    sounds.append(soundList)
+
+
+# ALL CHARACTERS TAKE THE FORMAT (GROUND ATTACKS, AIR ATTACKS, SOUNDS, WIDTH, HEIGHT, HEALTH, SPEED)
+char1 = Character(char1Gatks, char1Jatks, sounds[0], 100, 150, 100, 20)
+char2 = Character(char2Gatks, char2Jatks, sounds[1], 150, 200, 200, 10)
+char3 = Character(char3Gatks, char3Jatks, sounds[2], 200, 300, 300, 5)
 
 # Main code
 
