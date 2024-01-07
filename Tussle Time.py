@@ -555,16 +555,16 @@ hatkSounds = []
 for character in range(1, 4):
     soundList = []
     for sound in range(1, 6):
-        newSound = pygame.mixer.Sound("./Assets/Screens/BattleScreen/char" + str(character) + "hit" + str(sound) + ".mp3")
+        newSound = pygame.mixer.Sound("./Assets/Screens/BattleSfx/char" + str(character) + "hit" + str(sound) + ".mp3")
         soundList.append(newSound)
     hurtSounds.append(soundList)
 
 for sound in range (1,5):
-    newSound = pygame.mixer.Sound("./Assets/Screens/BattleScreen/latk" + str(sound) + ".mp3")
+    newSound = pygame.mixer.Sound("./Assets/Screens/BattleSfx/latk" + str(sound) + ".mp3")
     latkSounds.append(newSound)
 
 for sound in range (1,4):
-    newSound = pygame.mixer.Sound("./Assets/Screens/BattleScreen/hatk" + str(sound) + ".mp3")
+    newSound = pygame.mixer.Sound("./Assets/Screens/BattleSfx/hatk" + str(sound) + ".mp3")
     hatkSounds.append(newSound)
 
 
