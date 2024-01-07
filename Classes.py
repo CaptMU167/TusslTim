@@ -219,7 +219,7 @@ class Player():
         pygame.draw.rect(screen, "red", hitRect)
 
     # Takes inputs and allows for any appropriate reaction.
-    def action(self, player, target):
+    def action(self, player, target, latkSounds, hatkSounds):
         
         # Set the player's direction:
         if self.xPos < target.xPos:
@@ -252,36 +252,44 @@ class Player():
                 if key[pygame.K_c] and self.atkcooldown == 0:
                     self.attack(self.atk1, target)
                     currentAtk = self.atk1
+                    atksound = choice(latkSounds)
 
                 if key[pygame.K_f] and self.atkcooldown == 0:
                     self.attack(self.atk2, target)
                     currentAtk = self.atk2
+                    atksound = choice(latkSounds)
 
                 if key[pygame.K_g] and self.atkcooldown == 0:
                     self.attack(self.atk3, target)
                     currentAtk = self.atk3
+                    atksound = choice(hatkSounds)
 
                 if key[pygame.K_n] and self.atkcooldown == 0:
                     self.attack(self.atk4, target)
                     currentAtk = self.atk4
+                    atksound = choice(hatkSounds)
 
                 # Airborne Attacks
             elif self.isJumping and self.atkcooldown == 0 and self.knockDecay == 1.0: # If the knockDecay is 1 then they're not being knocked back.
                 if key[pygame.K_c]:
                     self.attack(self.jatk1, target)
                     currentAtk = self.jatk1
+                    atksound = choice(latkSounds)
 
                 if key[pygame.K_f]:
                     self.attack(self.jatk2, target)
                     currentAtk = self.jatk2
-                
+                    atksound = choice(latkSounds)
+
                 if key[pygame.K_g]:
                     self.attack(self.jatk3, target)
                     currentAtk = self.jatk3
+                    atksound = choice(hatkSounds)
 
                 if key[pygame.K_n]:
                     self.attack(self.jatk4, target)
                     currentAtk = self.jatk4
+                    atksound = choice(hatkSounds)
        
         elif player == 2:
             if not self.isJumping:
@@ -301,39 +309,48 @@ class Player():
                 if key[pygame.K_k] and self.atkcooldown == 0:
                     self.attack(self.atk1, target)
                     currentAtk = self.atk1
+                    atksound = choice(latkSounds)
 
                 if key[pygame.K_o] and self.atkcooldown == 0:
                     self.attack(self.atk2, target)
                     currentAtk = self.atk2
+                    atksound = choice(latkSounds)
 
                 if key[pygame.K_p] and self.atkcooldown == 0:
                     self.attack(self.atk3, target)
                     currentAtk = self.atk3
+                    atksound = choice(hatkSounds)
 
                 if key[pygame.K_LEFTBRACKET] and self.atkcooldown == 0:
                     self.attack(self.atk4, target)
                     currentAtk = self.atk4
+                    atksound = choice(hatkSounds)
 
                 # Airborne attacks
             elif self.isJumping and self.atkcooldown == 0 and self.knockDecay == 1.0: # If the knockDecay is 1 then they're not being knocked back. 
                 if key[pygame.K_k]:
                     self.attack(self.jatk1, target)
                     currentAtk = self.jatk1
+                    atksound = choice(latkSounds)
 
                 if key[pygame.K_o]:
                     self.attack(self.jatk2, target)
                     currentAtk = self.jatk2
+                    atksound = choice(latkSounds)
 
                 if key[pygame.K_p]:
                     self.attack(self.jatk3, target)
                     currentAtk = self.jatk3
+                    atksound = choice(hatkSounds)
 
                 if key[pygame.K_LEFTBRACKET]:
                     self.attack(self.jatk4, target)
                     currentAtk = self.jatk4
+                    atksound = choice(hatkSounds)
 
         if currentAtk is not None:
             self.atkcooldown = currentAtk.cooldown
+            atksound.play()
             if currentAtk.hasMove:
                 self.velX = currentAtk.dVel[0] * self.facing
                 self.velY = currentAtk.dVel[1]

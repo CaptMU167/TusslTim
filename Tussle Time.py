@@ -371,8 +371,8 @@ def battleScreen(events, surface):
     pygame.draw.rect(surface, "White", groundRect)
 
     # Player actions:
-    Player1.action(1, Player2)
-    Player2.action(2, Player1)
+    Player1.action(1, Player2, latkSounds, hatkSounds)
+    Player2.action(2, Player1, latkSounds, hatkSounds)
     Player1.draw(surface, "green")
     Player2.draw(surface, "blue")
 
@@ -548,20 +548,30 @@ char3Jatks = (char3Jatk1, char3Jatk2, char3Jatk3, char3Jatk4)
 
 # Loading Sound Effects
 
-sounds = []
+hurtSounds = []
+latkSounds = []
+hatkSounds = []
 
 for character in range(1, 4):
     soundList = []
     for sound in range(1, 6):
         newSound = pygame.mixer.Sound("./Assets/Screens/BattleScreen/char" + str(character) + "hit" + str(sound) + ".mp3")
         soundList.append(newSound)
-    sounds.append(soundList)
+    hurtSounds.append(soundList)
+
+for sound in range (1,5):
+    newSound = pygame.mixer.Sound("./Assets/Screens/BattleScreen/latk" + str(sound) + ".mp3")
+    latkSounds.append(newSound)
+
+for sound in range (1,4):
+    newSound = pygame.mixer.Sound("./Assets/Screens/BattleScreen/hatk" + str(sound) + ".mp3")
+    hatkSounds.append(newSound)
 
 
 # ALL CHARACTERS TAKE THE FORMAT (GROUND ATTACKS, AIR ATTACKS, SOUNDS, WIDTH, HEIGHT, HEALTH, SPEED)
-char1 = Character(char1Gatks, char1Jatks, sounds[0], 100, 150, 100, 20)
-char2 = Character(char2Gatks, char2Jatks, sounds[1], 150, 200, 200, 10)
-char3 = Character(char3Gatks, char3Jatks, sounds[2], 200, 300, 300, 5)
+char1 = Character(char1Gatks, char1Jatks, hurtSounds[0], 100, 150, 100, 20)
+char2 = Character(char2Gatks, char2Jatks, hurtSounds[1], 150, 200, 200, 10)
+char3 = Character(char3Gatks, char3Jatks, hurtSounds[2], 200, 300, 300, 5)
 
 # Main code
 
@@ -615,7 +625,7 @@ while running:
                 
                 # Loads certain characters based on the players' selections.
                 if p1char == 1:
-                    Player1.loadInfo(char1.getInfo())  # GetInfo returns a list, so it has to be broken down via this indexing.
+                    Player1.loadInfo(char1.getInfo())  # GetInfo returns a list.
                 elif p1char == 2:
                     Player1.loadInfo(char2.getInfo())
                 else:
