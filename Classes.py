@@ -147,6 +147,9 @@ class Player():
                 self.isJumping = False
                 self.velY = 0
                 self.yPos = self.GROUND
+                if self.knockDecay < 1.0:
+                    self.knockDecay = 1.0
+                    self.dmgDecay = 1.0
         
         if self.rect.right + self.velX > WIDTH:      # If the next movement hits the wall, allow player to stick to the wall but move no further.
             self.xPos = WIDTH - self.rect.width
@@ -236,9 +239,6 @@ class Player():
 
         if player == 1:
             if not self.isJumping:
-                if self.knockDecay < 1.0:
-                    self.knockDecay = 1.0
-                    self.dmgDecay = 1.0
                 
                 # Movements
                 if key[pygame.K_a]:

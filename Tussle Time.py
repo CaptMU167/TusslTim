@@ -333,7 +333,7 @@ def charInfo(events, level):
     return toReturn, level 
 
 # BATTLE SCREEN
-def battleScreen(events, surface):    
+def battleScreen(events, surface, mode):    
     
     #Preparing variables
     toReturn = 0
@@ -383,7 +383,10 @@ def battleScreen(events, surface):
 
     # Player actions:
     Player1.action(1, Player2, latkSounds, hatkSounds)
-    Player2.action(2, Player1, latkSounds, hatkSounds)
+    if mode == "play":
+        Player2.action(2, Player1, latkSounds, hatkSounds)
+    else:
+        Player2.move(None)
     Player1.draw(surface, "green")
     Player2.draw(surface, "blue")
 
@@ -681,7 +684,7 @@ while running:
     
     # Battle Screen
     elif runBattle:
-        option = battleScreen(events, screen)
+        option = battleScreen(events, screen, mode)
 
         # Exit battle screen when the player presses escape or someone wins (see battleScreen code)
         if option == 1:
