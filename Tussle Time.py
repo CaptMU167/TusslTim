@@ -33,6 +33,7 @@ def mainMenu(events):
                 MainMenu.changeSelected(1)
             if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                 toReturn = selected
+                enterScreen.play()
 
     # Anchor X and Y positions for the buttons
     BUTTONY = HEIGHT*(2/3)
@@ -101,8 +102,10 @@ def charSelect(events, p1ready, p2ready, mode):
                 # Player 2 buttons:
                 if event.key == pygame.K_RETURN:
                     p2ready = True
+                    enterScreen.play()
                 if event.key == pygame.K_BACKSPACE and p2ready:     
                     p2ready = False
+                    exitScreen.play()
                 if event.key == pygame.K_UP and not p2ready:
                     SelectPlayer2.changeSelected(-1)
                 if event.key == pygame.K_DOWN and not p2ready:
@@ -111,8 +114,10 @@ def charSelect(events, p1ready, p2ready, mode):
             elif mode == "practice" and p1ready:                                                    # The mode is practice, so player 1 selects the character for player 2
                 if event.key == pygame.K_SPACE:                  # P2 readies 
                     p2ready = True
+                    enterScreen.play()
                 if event.key == pygame.K_ESCAPE and p2ready:     # P2 unreadies
                     p2ready = False
+                    exitScreen.play()
                 if event.key == pygame.K_w and not p2ready:
                     SelectPlayer2.changeSelected(-1)
                 if event.key == pygame.K_s and not p2ready:
@@ -121,10 +126,13 @@ def charSelect(events, p1ready, p2ready, mode):
             # Player 1 buttons:            
             if event.key == pygame.K_ESCAPE and not p1ready:     # Returns the players to the main menu.
                 toReturn = 2
+                exitScreen.play()
             if event.key == pygame.K_SPACE:                  # P1 readies 
                 p1ready = True
+                enterScreen.play()
             if event.key == pygame.K_ESCAPE and p1ready:     # P1 unreadies
                 p1ready = False
+                exitScreen.play()
             if event.key == pygame.K_w and not p1ready:
                 SelectPlayer1.changeSelected(-1)
             if event.key == pygame.K_s and not p1ready:
@@ -219,8 +227,10 @@ def charInfo(events, level):
             if level == 1:          
                 if event.key == pygame.K_ESCAPE:              # Exit the character info screen
                     toReturn = 1
+                    exitScreen.play()
                 if event.key == pygame.K_SPACE:               # Move to the attack list
                     level = 2
+                    enterScreen.play()
                 if event.key == pygame.K_w and not p1ready:
                     CharInfoLvl1.changeSelected(-1)
                 if event.key == pygame.K_s and not p1ready:
@@ -229,6 +239,7 @@ def charInfo(events, level):
                 if event.key == pygame.K_ESCAPE:              # Return to the character list
                     level = 1
                     CharInfoLvl2.setSelected(1)
+                    exitScreen.play()
                 if event.key == pygame.K_w and not p1ready:
                     CharInfoLvl2.changeSelected(-1)
                 if event.key == pygame.K_s and not p1ready:
@@ -457,6 +468,7 @@ def pauseTile(player):
                     elif event.key == pygame.K_s:
                         pauseSelect.changeSelected(1)
                     elif event.key == pygame.K_SPACE:
+                        enterScreen.play()
                         runPause = False
 
                 elif player == 2:
@@ -466,6 +478,7 @@ def pauseTile(player):
                         pauseSelect.changeSelected(1)
                     elif event.key == pygame.K_RETURN:
                         runPause = False
+                        enterScreen.play()
         
         pygame.display.flip()
     
@@ -548,6 +561,7 @@ char3Jatks = (char3Jatk1, char3Jatk2, char3Jatk3, char3Jatk4)
 
 # Loading Sound Effects
 
+# sfx groups
 hurtSounds = []
 latkSounds = []
 hatkSounds = []
@@ -567,6 +581,9 @@ for sound in range (1,4):
     newSound = pygame.mixer.Sound("./Assets/Screens/BattleSfx/hatk" + str(sound) + ".mp3")
     hatkSounds.append(newSound)
 
+# Individual sfx
+enterScreen = pygame.mixer.Sound("./Assets/Screens/ScreenSfx/enterScreen.mp3")
+exitScreen = pygame.mixer.Sound("./Assets/Screens/ScreenSfx/exitScreen.mp3")
 
 # ALL CHARACTERS TAKE THE FORMAT (GROUND ATTACKS, AIR ATTACKS, SOUNDS, WIDTH, HEIGHT, HEALTH, SPEED)
 char1 = Character(char1Gatks, char1Jatks, hurtSounds[0], 100, 150, 100, 20)
